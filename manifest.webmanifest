@@ -1,0 +1,12 @@
+{
+  "name": "Farm Control",
+  "short_name": "Farm Control",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f4f4f4",
+  "theme_color": "#0b6b3a",
+  "icons": [
+    {"src": "farm-control-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "farm-control-512.png", "sizes": "512x512", "type": "image/png"}
+  ]
+}
