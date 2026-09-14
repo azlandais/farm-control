@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farm Control</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 24px;
+      background: #f4f4f4;
+      color: #222;
+    }
+    h1 { text-align: center; }
+    .status {
+      text-align: center;
+      margin: 12px 0 20px;
+      padding: 10px;
+      border-radius: 8px;
+      background: white;
+    }
+    .login, .control {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px;
+      margin: 7px 0;
+      font-size: 16px;
+      border: 1px solid #bbb;
+      border-radius: 8px;
+    }
+    button {
+      width: 100%;
+      padding: 15px;
+      margin: 7px 0;
+      font-size: 18px;
+      border: 0;
+      border-radius: 9px;
+      cursor: pointer;
+    }
+    .loginBtn { background: #333; color: white; }
+    .on { background: #2e9b50; color: white; }
+    .off { background: #bbb; color: #111; }
+    .logout { background: #ddd; color: #111; font-size: 14px; }
+    .output {
+      border-top: 1px solid #ddd;
+      padding-top: 14px;
+      margin-top: 14px;
+    }
+    .state {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+    #controls { display: none; }
+  </style>
+</head>
+<body>
+
+<h1>Farm Control</h1>
+<div class="status" id="status">Not signed in</div>
+
+<div class="login" id="loginBox">
+  <h2>Firebase Login</h2>
+  <input id="email" type="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
+  <button class="loginBtn" id="loginBtn">Sign In</button>
+</div>
+
+<div class="control" id="controls">
+  <h2>Outputs</h2>
+
+  <div class="output">
+    <div>Output 1 — GPIO 12</div>
+    <div class="state" id="state12">OFF</div>
+    <button class="on" onclick="setOutput(12, true)">ON</button>
+    <button class="off" onclick="setOutput(12, false)">OFF</button>
+  </div>
+
+  <div class="output">
+    <div>Output 2 — GPIO 13</div>
+    <div class="state" id="state13">OFF</div>
+    <button class="on" onclick="setOutput(13, true)">ON</button>
+    <button class="off" onclick="setOutput(13, false)">OFF</button>
+  </div>
+
+  <div class="output">
+    <div>Output 3 — GPIO 14</div>
+    <div class="state" id="state14">OFF</div>
+    <button class="on" onclick="setOutput(14, true)">ON</button>
+    <button class="off" onclick="setOutput(14, false)">OFF</button>
+  </div>
+
+  <button class="logout" id="logoutBtn">Sign Out</button>
+</div>
+
+<script type="module">
+  import { initializeApp } from
+    "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+  import {
+    getAuth,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+  } from
+    "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+  import {
+    getDatabase,
+    ref,
+    set,
+    onValue
+  } from
+    "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+
+  // Firebase project configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyC_kPJGt4yZEenhao492NQNcNdiQTytB3s",
+    authDomain: "farm-control-84237.firebaseapp.com",
+    databaseURL: "https://farm-control-84237-default-rtdb.firebaseio.com",
+    projectId: "farm-control-84237"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getDatabase(app);
+
+  const digitalRef = ref(db, "board1/outputs/digital");
+
+  const status = document.getElementById("status");
+  const loginBox = document.getElementById("loginBox");
+  const controls = document.getElementById("controls");
+
+  document.getElementById("loginBtn").onclick = async () => {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    if (!email || !password) {
+      status.textContent = "Enter your email and password.";
+      return;
+    }
+
+    try {
+      status.textContent = "Signing in...";
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      console.error(error);
+      status.textContent = "Login failed: " + error.message;
+    }
+  };
+
+  document.getElementById("logoutBtn").onclick = () => signOut(auth);
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      status.textContent = "Connected: " + user.email;
+      loginBox.style.display = "none";
+      controls.style.display = "block";
+    } else {
+      status.textContent = "Not signed in";
+      loginBox.style.display = "block";
+      controls.style.display = "none";
+    }
+  });
+
+  // Watch Firebase and update the displayed states.
+  onValue(digitalRef, (snapshot) => {
+    const data = snapshot.val() || {};
+
+    updateState(12, data["12"]);
+    updateState(13, data["13"]);
+    updateState(14, data["14"]);
+  }, (error) => {
+    console.error(error);
+    status.textContent = "Database error: " + error.message;
+  });
+
+  function updateState(pin, value) {
+    document.getElementById("state" + pin).textContent =
+      value === true ? "ON" : "OFF";
+  }
+
+  window.setOutput = async (pin, state) => {
+    if (!auth.currentUser) {
+      status.textContent = "Please sign in first.";
+      return;
+    }
+
+    try {
+      await set(ref(db, `board1/outputs/digital/${pin}`), state);
+      status.textContent = `GPIO ${pin} set to ${state ? "ON" : "OFF"}`;
+    } catch (error) {
+      console.error(error);
+      status.textContent = "Write failed: " + error.message;
+    }
+  };
+</script>
+
+</body>
+</html>
