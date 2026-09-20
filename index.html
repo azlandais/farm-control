@@ -434,7 +434,26 @@
 
       controls.style.display =
         "block";
+     // =====================================
+      // WATCH INPUTS
+      // =====================================
 
+      for (let i = 1; i <= 4; i++) {
+
+        const inputRef =
+          ref(db, `Input/Input${i}`);
+
+        onValue(inputRef, (snapshot) => {
+
+          const value = snapshot.val();
+
+          document.getElementById(
+            "input" + i
+          ).textContent =
+            value === true ? "ON" : "OFF";
+
+        });
+      }
     } else {
 
       status.textContent =
@@ -524,27 +543,7 @@
     }
   );
 
-   // =====================================
-  // WATCH INPUTS
-  // =====================================
 
-  for (let i = 1; i <= 4; i++) {
-
-    const inputRef =
-      ref(db, `Input/Input${i}`);
-
-    onValue(inputRef, (snapshot) => {
-
-      const value =
-        snapshot.val();
-
-      document.getElementById(
-        "input" + i
-      ).textContent =
-        value === true ? "ON" : "OFF";
-
-    });
-  }
 
   // =====================================
   // CONTROL RELAY
