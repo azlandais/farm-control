@@ -168,7 +168,30 @@
     </div>
 
   </div>
+ 
+  <!-- INPUTS -->
 
+  <div class="sensor">
+
+    <h3>Inputs</h3>
+
+    <div class="state">
+      Input 1: <span id="input1">OFF</span>
+    </div>
+
+    <div class="state">
+      Input 2: <span id="input2">OFF</span>
+    </div>
+
+    <div class="state">
+      Input 3: <span id="input3">OFF</span>
+    </div>
+
+    <div class="state">
+      Input 4: <span id="input4">OFF</span>
+    </div>
+
+  </div>
 
   <!-- RELAY 1 -->
 
@@ -501,6 +524,27 @@
     }
   );
 
+   // =====================================
+  // WATCH INPUTS
+  // =====================================
+
+  for (let i = 1; i <= 4; i++) {
+
+    const inputRef =
+      ref(db, `Input/Input${i}`);
+
+    onValue(inputRef, (snapshot) => {
+
+      const value =
+        snapshot.val();
+
+      document.getElementById(
+        "input" + i
+      ).textContent =
+        value === true ? "ON" : "OFF";
+
+    });
+  }
 
   // =====================================
   // CONTROL RELAY
