@@ -15,7 +15,9 @@
       color: #222;
     }
 
-    h1 { text-align: center; }
+    h1 {
+      text-align: center;
+    }
 
     .status {
       text-align: center;
@@ -111,7 +113,9 @@
       margin-right: 8px;
     }
 
-    #controls { display: none; }
+    #controls {
+      display: none;
+    }
   </style>
 </head>
 
@@ -119,106 +123,301 @@
 
 <h1>Farm Control</h1>
 
-<div class="status" id="status">Not signed in</div>
+<div class="status" id="status">
+  Not signed in
+</div>
+
+
+<!-- LOGIN -->
 
 <div class="login" id="loginBox">
+
   <h2>Firebase Login</h2>
 
-  <input id="email" type="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Password">
+  <input
+    id="email"
+    type="email"
+    placeholder="Email"
+  >
 
-  <button class="loginBtn" id="loginBtn">Sign In</button>
+  <input
+    id="password"
+    type="password"
+    placeholder="Password"
+  >
+
+  <button
+    class="loginBtn"
+    id="loginBtn">
+    Sign In
+  </button>
+
 </div>
+
+
+<!-- CONTROLS -->
 
 <div class="control" id="controls">
 
   <h2>Farm Control</h2>
 
+
+  <!-- TEMPERATURE -->
+
   <div class="sensor">
+
     <h3>Temperature</h3>
+
     <div class="sensorValue">
       <span id="temperature">--</span> °C
     </div>
+
   </div>
 
+
+  <!-- HUMIDITY -->
+
   <div class="sensor">
+
     <h3>Humidity</h3>
+
     <div class="sensorValue">
       <span id="humidity">--</span> %
     </div>
+
   </div>
+ 
+  <!-- INPUTS -->
 
   <div class="sensor">
+
     <h3>Inputs</h3>
 
-    <div class="state">Input 1: <span id="input1">OFF</span></div>
-    <div class="state">Input 2: <span id="input2">OFF</span></div>
-    <div class="state">Input 3: <span id="input3">OFF</span></div>
-    <div class="state">Input 4: <span id="input4">OFF</span></div>
+    <div class="state">
+      Input 1: <span id="input1">OFF</span>
+    </div>
+
+    <div class="state">
+      Input 2: <span id="input2">OFF</span>
+    </div>
+
+    <div class="state">
+      Input 3: <span id="input3">OFF</span>
+    </div>
+
+    <div class="state">
+      Input 4: <span id="input4">OFF</span>
+    </div>
+
   </div>
+
+  <!-- RELAY 1 -->
 
   <div class="output">
+
     <h3>Relay 1</h3>
 
-    <div class="state" id="state1">OFF</div>
+    <div class="state" id="state1">
+      OFF
+    </div>
 
-    <button class="on" onclick="setRelay(1, true)">ON</button>
-    <button class="off" onclick="setRelay(1, false)">OFF</button>
+    <button
+      class="on"
+      onclick="setRelay(1, true)">
+      ON
+    </button>
+
+    <button
+      class="off"
+      onclick="setRelay(1, false)">
+      OFF
+    </button>
+
   </div>
+
+  <!-- RELAY 1 PHONE SCHEDULE -->
 
   <div class="schedule">
     <h3>Relay 1 Schedule</h3>
 
     <label>
-      <input id="scheduleEnabled" type="checkbox">
+      <input id="scheduleEnabled1" type="checkbox">
       Enable automatic schedule
     </label>
 
-    <label for="startTime">Start time</label>
-    <input id="startTime" type="time" value="06:00">
+    <label for="startTime1">Start time</label>
+    <input id="startTime1" type="time" value="06:00">
 
-    <label for="stopTime">Stop time</label>
-    <input id="stopTime" type="time" value="06:30">
+    <label for="stopTime1">Stop time</label>
+    <input id="stopTime1" type="time" value="06:30">
 
-    <button class="on" id="saveScheduleBtn">
+    <button class="on" id="saveScheduleBtn1">
       Save Relay 1 Schedule
     </button>
 
-    <div class="state" id="scheduleState">
+    <div class="state" id="scheduleState1">
       Schedule not loaded
     </div>
   </div>
 
+  <!-- RELAY 2 -->
+
   <div class="output">
+
     <h3>Relay 2</h3>
 
-    <div class="state" id="state2">OFF</div>
+    <div class="state" id="state2">
+      OFF
+    </div>
 
-    <button class="on" onclick="setRelay(2, true)">ON</button>
-    <button class="off" onclick="setRelay(2, false)">OFF</button>
+    <button
+      class="on"
+      onclick="setRelay(2, true)">
+      ON
+    </button>
+
+    <button
+      class="off"
+      onclick="setRelay(2, false)">
+      OFF
+    </button>
+
   </div>
 
+  <!-- RELAY 2 PHONE SCHEDULE -->
+
+  <div class="schedule">
+    <h3>Relay 2 Schedule</h3>
+
+    <label>
+      <input id="scheduleEnabled2" type="checkbox">
+      Enable automatic schedule
+    </label>
+
+    <label for="startTime2">Start time</label>
+    <input id="startTime2" type="time" value="06:00">
+
+    <label for="stopTime2">Stop time</label>
+    <input id="stopTime2" type="time" value="06:30">
+
+    <button class="on" id="saveScheduleBtn2">
+      Save Relay 2 Schedule
+    </button>
+
+    <div class="state" id="scheduleState2">
+      Schedule not loaded
+    </div>
+  </div>
+
+
+  <!-- RELAY 3 -->
+
   <div class="output">
+
     <h3>Relay 3</h3>
 
-    <div class="state" id="state3">OFF</div>
+    <div class="state" id="state3">
+      OFF
+    </div>
 
-    <button class="on" onclick="setRelay(3, true)">ON</button>
-    <button class="off" onclick="setRelay(3, false)">OFF</button>
+    <button
+      class="on"
+      onclick="setRelay(3, true)">
+      ON
+    </button>
+
+    <button
+      class="off"
+      onclick="setRelay(3, false)">
+      OFF
+    </button>
+
   </div>
+
+  <!-- RELAY 3 PHONE SCHEDULE -->
+
+  <div class="schedule">
+    <h3>Relay 3 Schedule</h3>
+
+    <label>
+      <input id="scheduleEnabled3" type="checkbox">
+      Enable automatic schedule
+    </label>
+
+    <label for="startTime3">Start time</label>
+    <input id="startTime3" type="time" value="06:00">
+
+    <label for="stopTime3">Stop time</label>
+    <input id="stopTime3" type="time" value="06:30">
+
+    <button class="on" id="saveScheduleBtn3">
+      Save Relay 3 Schedule
+    </button>
+
+    <div class="state" id="scheduleState3">
+      Schedule not loaded
+    </div>
+  </div>
+
+
+  <!-- RELAY 4 -->
 
   <div class="output">
+
     <h3>Relay 4</h3>
 
-    <div class="state" id="state4">OFF</div>
+    <div class="state" id="state4">
+      OFF
+    </div>
 
-    <button class="on" onclick="setRelay(4, true)">ON</button>
-    <button class="off" onclick="setRelay(4, false)">OFF</button>
+    <button
+      class="on"
+      onclick="setRelay(4, true)">
+      ON
+    </button>
+
+    <button
+      class="off"
+      onclick="setRelay(4, false)">
+      OFF
+    </button>
+
   </div>
 
-  <button class="logout" id="logoutBtn">Sign Out</button>
+  <!-- RELAY 4 PHONE SCHEDULE -->
+
+  <div class="schedule">
+    <h3>Relay 4 Schedule</h3>
+
+    <label>
+      <input id="scheduleEnabled4" type="checkbox">
+      Enable automatic schedule
+    </label>
+
+    <label for="startTime4">Start time</label>
+    <input id="startTime4" type="time" value="06:00">
+
+    <label for="stopTime4">Stop time</label>
+    <input id="stopTime4" type="time" value="06:30">
+
+    <button class="on" id="saveScheduleBtn4">
+      Save Relay 4 Schedule
+    </button>
+
+    <div class="state" id="scheduleState4">
+      Schedule not loaded
+    </div>
+  </div>
+
+
+  <button
+    class="logout"
+    id="logoutBtn">
+    Sign Out
+  </button>
 
 </div>
+
 
 <script type="module">
 
@@ -241,59 +440,120 @@
   } from
     "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
 
+
+  // =====================================
+  // FIREBASE ESP32-ADDA
+  // =====================================
+
   const firebaseConfig = {
+
     apiKey: "AIzaSyDnOdpe6wlzxGyCIjqu7JvHXY3KQg5pabE",
-    authDomain: "esp32-adda.firebaseapp.com",
-    databaseURL: "https://esp32-adda-default-rtdb.firebaseio.com",
-    projectId: "esp32-adda"
+
+    authDomain:
+      "esp32-adda.firebaseapp.com",
+
+    databaseURL:
+      "https://esp32-adda-default-rtdb.firebaseio.com",
+
+    projectId:
+      "esp32-adda"
+
   };
+
 
   const app = initializeApp(firebaseConfig);
+
   const auth = getAuth(app);
+
   const db = getDatabase(app);
 
-  const status = document.getElementById("status");
-  const loginBox = document.getElementById("loginBox");
-  const controls = document.getElementById("controls");
 
-  document.getElementById("loginBtn").onclick = async () => {
+  // =====================================
+  // HTML ELEMENTS
+  // =====================================
 
-    const email =
-      document.getElementById("email").value.trim();
+  const status =
+    document.getElementById("status");
 
-    const password =
-      document.getElementById("password").value;
+  const loginBox =
+    document.getElementById("loginBox");
 
-    if (!email || !password) {
-      status.textContent = "Enter your email and password.";
-      return;
-    }
+  const controls =
+    document.getElementById("controls");
 
-    try {
-      status.textContent = "Signing in...";
 
-      await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+  // =====================================
+  // LOGIN
+  // =====================================
 
-    } catch (error) {
-      console.error(error);
-      status.textContent = "Login failed: " + error.message;
-    }
-  };
+  document.getElementById("loginBtn").onclick =
+    async () => {
+
+      const email =
+        document.getElementById("email")
+          .value.trim();
+
+      const password =
+        document.getElementById("password")
+          .value;
+
+      if (!email || !password) {
+
+        status.textContent =
+          "Enter your email and password.";
+
+        return;
+      }
+
+      try {
+
+        status.textContent =
+          "Signing in...";
+
+        await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+
+      } catch (error) {
+
+        console.error(error);
+
+        status.textContent =
+          "Login failed: " +
+          error.message;
+      }
+    };
+
+
+  // =====================================
+  // LOGOUT
+  // =====================================
 
   document.getElementById("logoutBtn").onclick =
     () => signOut(auth);
+
+
+  // =====================================
+  // AUTHENTICATION STATUS
+  // =====================================
 
   onAuthStateChanged(auth, (user) => {
 
     if (user) {
 
-      status.textContent = "Connected: " + user.email;
-      loginBox.style.display = "none";
-      controls.style.display = "block";
+      status.textContent =
+        "Connected: " + user.email;
+
+      loginBox.style.display =
+        "none";
+
+      controls.style.display =
+        "block";
+     // =====================================
+      // WATCH INPUTS
+      // =====================================
 
       for (let i = 1; i <= 4; i++) {
 
@@ -308,16 +568,27 @@
             "input" + i
           ).textContent =
             value === true ? "ON" : "OFF";
+
         });
       }
-
     } else {
 
-      status.textContent = "Not signed in";
-      loginBox.style.display = "block";
-      controls.style.display = "none";
+      status.textContent =
+        "Not signed in";
+
+      loginBox.style.display =
+        "block";
+
+      controls.style.display =
+        "none";
     }
+
   });
+
+
+  // =====================================
+  // WATCH RELAYS
+  // =====================================
 
   for (let i = 1; i <= 4; i++) {
 
@@ -326,159 +597,173 @@
 
     onValue(relayRef, (snapshot) => {
 
-      const value = snapshot.val();
+      const value =
+        snapshot.val();
 
       document.getElementById(
         "state" + i
       ).textContent =
         value === true ? "ON" : "OFF";
+
     });
   }
+
+
+  // =====================================
+  // WATCH TEMPERATURE
+  // =====================================
 
   const temperatureRef =
     ref(db, "test/temperature");
 
-  onValue(temperatureRef, (snapshot) => {
+  onValue(
+    temperatureRef,
+    (snapshot) => {
 
-    const value = snapshot.val();
+      const value =
+        snapshot.val();
 
-    if (value !== null) {
-      document.getElementById(
-        "temperature"
-      ).textContent =
-        Number(value).toFixed(1);
+      if (value !== null) {
+
+        document.getElementById(
+          "temperature"
+        ).textContent =
+          Number(value).toFixed(1);
+      }
+
     }
-  });
+  );
+
+
+  // =====================================
+  // WATCH HUMIDITY
+  // =====================================
 
   const humidityRef =
     ref(db, "test/humidity");
 
-  onValue(humidityRef, (snapshot) => {
+  onValue(
+    humidityRef,
+    (snapshot) => {
 
-    const value = snapshot.val();
+      const value =
+        snapshot.val();
 
-    if (value !== null) {
-      document.getElementById(
-        "humidity"
-      ).textContent =
-        Number(value).toFixed(1);
+      if (value !== null) {
+
+        document.getElementById(
+          "humidity"
+        ).textContent =
+          Number(value).toFixed(1);
+      }
+
     }
-  });
+  );
 
-  const scheduleRef =
-    ref(db, "schedule/relay1");
 
-  onValue(scheduleRef, (snapshot) => {
+  // =====================================
+  // RELAY SCHEDULES
+  // =====================================
 
-    const schedule = snapshot.val();
+  for (let relay = 1; relay <= 4; relay++) {
+    const scheduleRef = ref(db, `schedule/relay${relay}`);
 
-    if (!schedule) {
-      document.getElementById(
-        "scheduleState"
-      ).textContent = "No schedule saved";
-      return;
-    }
+    onValue(scheduleRef, (snapshot) => {
+      const schedule = snapshot.val();
 
-    document.getElementById(
-      "scheduleEnabled"
-    ).checked =
-      schedule.enabled === true;
+      if (!schedule) return;
 
-    document.getElementById(
-      "startTime"
-    ).value =
-      String(schedule.startHour ?? 0).padStart(2, "0") +
-      ":" +
-      String(schedule.startMinute ?? 0).padStart(2, "0");
+      document.getElementById(`scheduleEnabled${relay}`).checked =
+        schedule.enabled === true;
 
-    document.getElementById(
-      "stopTime"
-    ).value =
-      String(schedule.stop1Hour ?? 0).padStart(2, "0") +
-      ":" +
-      String(schedule.stop1Minute ?? 0).padStart(2, "0");
+      document.getElementById(`startTime${relay}`).value =
+        String(schedule.startHour ?? 0).padStart(2, "0") + ":" +
+        String(schedule.startMinute ?? 0).padStart(2, "0");
 
-    document.getElementById(
-      "scheduleState"
-    ).textContent =
-      schedule.enabled
-        ? "Schedule enabled"
-        : "Schedule disabled";
-  });
+      document.getElementById(`stopTime${relay}`).value =
+        String(schedule.stopHour ?? 0).padStart(2, "0") + ":" +
+        String(schedule.stopMinute ?? 0).padStart(2, "0");
 
-  document.getElementById(
-    "saveScheduleBtn"
-  ).onclick = async () => {
+      document.getElementById(`scheduleState${relay}`).textContent =
+        schedule.enabled ? "Schedule enabled" : "Schedule disabled";
+    });
 
-    if (!auth.currentUser) {
-      status.textContent = "Please sign in first.";
-      return;
-    }
+    document.getElementById(`saveScheduleBtn${relay}`).onclick = async () => {
+      if (!auth.currentUser) {
+        status.textContent = "Please sign in first.";
+        return;
+      }
 
-    const [startHour, startMinute] =
-      document.getElementById(
-        "startTime"
-      ).value.split(":").map(Number);
+      const [startHour, startMinute] =
+        document.getElementById(`startTime${relay}`).value
+          .split(":").map(Number);
 
-    const [stopHour, stopMinute] =
-      document.getElementById(
-        "stopTime"
-      ).value.split(":").map(Number);
+      const [stopHour, stopMinute] =
+        document.getElementById(`stopTime${relay}`).value
+          .split(":").map(Number);
 
-    try {
+      try {
+        await set(scheduleRef, {
+          enabled: document.getElementById(`scheduleEnabled${relay}`).checked,
+          startHour,
+          startMinute,
+          stopHour,
+          stopMinute
+        });
 
-      await set(scheduleRef, {
-        enabled:
-          document.getElementById(
-            "scheduleEnabled"
-          ).checked,
-        startHour,
-        startMinute,
-        stopHour,
-        stopMinute
-      });
+        status.textContent = `Relay ${relay} schedule saved.`;
+      } catch (error) {
+        console.error(error);
+        status.textContent =
+          `Relay ${relay} schedule save failed: ` + error.message;
+      }
+    };
+  }
 
-      status.textContent =
-        "Relay 1 schedule saved.";
 
-    } catch (error) {
 
-      console.error(error);
+  // =====================================
+  // CONTROL RELAY
+  // =====================================
 
-      status.textContent =
-        "Schedule save failed: " +
-        error.message;
-    }
-  };
+  window.setRelay =
+    async (relay, state) => {
 
-  window.setRelay = async (relay, state) => {
+      if (!auth.currentUser) {
 
-    if (!auth.currentUser) {
-      status.textContent = "Please sign in first.";
-      return;
-    }
+        status.textContent =
+          "Please sign in first.";
 
-    try {
+        return;
+      }
 
-      const relayRef =
-        ref(db, `relays/relay${relay}`);
+      try {
 
-      await set(relayRef, state);
+        const relayRef =
+          ref(
+            db,
+            `relays/relay${relay}`
+          );
 
-      status.textContent =
-        `Relay ${relay} set to ${
-          state ? "ON" : "OFF"
-        }`;
+        await set(
+          relayRef,
+          state
+        );
 
-    } catch (error) {
+        status.textContent =
+          `Relay ${relay} set to ${
+            state ? "ON" : "OFF"
+          }`;
 
-      console.error(error);
+      } catch (error) {
 
-      status.textContent =
-        "Write failed: " +
-        error.message;
-    }
-  };
+        console.error(error);
+
+        status.textContent =
+          "Write failed: " +
+          error.message;
+      }
+    };
 
 </script>
 
