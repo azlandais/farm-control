@@ -54,6 +54,11 @@
       cursor: pointer;
     }
 
+    button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
     .loginBtn {
       background: #333;
       color: white;
@@ -222,12 +227,14 @@
     </div>
 
     <button
+      id="relayOn1"
       class="on"
       onclick="setRelay(1, true)">
       ON
     </button>
 
     <button
+      id="relayOff1"
       class="off"
       onclick="setRelay(1, false)">
       OFF
@@ -271,12 +278,14 @@
     </div>
 
     <button
+      id="relayOn2"
       class="on"
       onclick="setRelay(2, true)">
       ON
     </button>
 
     <button
+      id="relayOff2"
       class="off"
       onclick="setRelay(2, false)">
       OFF
@@ -321,12 +330,14 @@
     </div>
 
     <button
+      id="relayOn3"
       class="on"
       onclick="setRelay(3, true)">
       ON
     </button>
 
     <button
+      id="relayOff3"
       class="off"
       onclick="setRelay(3, false)">
       OFF
@@ -371,12 +382,14 @@
     </div>
 
     <button
+      id="relayOn4"
       class="on"
       onclick="setRelay(4, true)">
       ON
     </button>
 
     <button
+      id="relayOff4"
       class="off"
       onclick="setRelay(4, false)">
       OFF
@@ -665,6 +678,11 @@
   // RELAY SCHEDULES
   // =====================================
 
+  function updateManualRelayButtons(relay, scheduleEnabled) {
+    document.getElementById(`relayOn${relay}`).disabled = scheduleEnabled;
+    document.getElementById(`relayOff${relay}`).disabled = scheduleEnabled;
+  }
+
   for (let relay = 1; relay <= 4; relay++) {
     const scheduleRef = ref(db, `schedule/relay${relay}`);
 
@@ -675,6 +693,8 @@
 
       document.getElementById(`scheduleEnabled${relay}`).checked =
         schedule.enabled === true;
+
+      updateManualRelayButtons(relay, schedule.enabled === true);
 
       document.getElementById(`startTime${relay}`).value =
         String(schedule.startHour ?? 0).padStart(2, "0") + ":" +
@@ -687,6 +707,10 @@
       document.getElementById(`scheduleState${relay}`).textContent =
         schedule.enabled ? "Schedule enabled" : "Schedule disabled";
     });
+
+    document.getElementById(`scheduleEnabled${relay}`).onchange = (event) => {
+      updateManualRelayButtons(relay, event.target.checked);
+    };
 
     document.getElementById(`saveScheduleBtn${relay}`).onclick = async () => {
       if (!auth.currentUser) {
@@ -734,6 +758,12 @@
         status.textContent =
           "Please sign in first.";
 
+        return;
+      }
+
+      if (document.getElementById(`scheduleEnabled${relay}`).checked) {
+        status.textContent =
+          `Relay ${relay} manual control is disabled while its schedule is enabled.`;
         return;
       }
 
