@@ -387,16 +387,16 @@
     document.getElementById(
       "startTime"
     ).value =
-      String(schedule.startHour ?? 0).padStart(2, "0") +
+      String(schedule.start1Hour ?? 0).padStart(2, "0") +
       ":" +
-      String(schedule.startMinute ?? 0).padStart(2, "0");
+      String(schedule.start1Minute ?? 0).padStart(2, "0");
 
     document.getElementById(
       "stopTime"
     ).value =
-      String(schedule.stopHour ?? 0).padStart(2, "0") +
+      String(schedule.stop1Hour ?? 0).padStart(2, "0") +
       ":" +
-      String(schedule.stopMinute ?? 0).padStart(2, "0");
+      String(schedule.stop1Minute ?? 0).padStart(2, "0");
 
     document.getElementById(
       "scheduleState"
@@ -415,12 +415,12 @@
       return;
     }
 
-    const [startHour, startMinute] =
+    const [star1tHour, start1Minute] =
       document.getElementById(
         "startTime"
       ).value.split(":").map(Number);
 
-    const [stopHour, stopMinute] =
+    const [stop1Hour, stop1Minute] =
       document.getElementById(
         "stopTime"
       ).value.split(":").map(Number);
@@ -432,10 +432,10 @@
           document.getElementById(
             "scheduleEnabled"
           ).checked,
-        startHour,
-        startMinute,
-        stopHour,
-        stopMinute
+        start1Hour,
+        start1Minute,
+        stop1Hour,
+        stop1Minute
       });
 
       status.textContent =
