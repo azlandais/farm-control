@@ -387,9 +387,9 @@
     document.getElementById(
       "startTime"
     ).value =
-      String(schedule.start1Hour ?? 0).padStart(2, "0") +
+      String(schedule.startHour ?? 0).padStart(2, "0") +
       ":" +
-      String(schedule.start1Minute ?? 0).padStart(2, "0");
+      String(schedule.startMinute ?? 0).padStart(2, "0");
 
     document.getElementById(
       "stopTime"
@@ -415,12 +415,12 @@
       return;
     }
 
-    const [star1tHour, start1Minute] =
+    const [startHour, startMinute] =
       document.getElementById(
         "startTime"
       ).value.split(":").map(Number);
 
-    const [stop1Hour, stop1Minute] =
+    const [stopHour, stopMinute] =
       document.getElementById(
         "stopTime"
       ).value.split(":").map(Number);
@@ -432,10 +432,10 @@
           document.getElementById(
             "scheduleEnabled"
           ).checked,
-        start1Hour,
-        start1Minute,
-        stop1Hour,
-        stop1Minute
+        startHour,
+        startMinute,
+        stopHour,
+        stopMinute
       });
 
       status.textContent =
